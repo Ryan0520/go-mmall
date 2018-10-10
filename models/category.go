@@ -23,10 +23,10 @@ func ExistCategoryByParentId(parentId int) (bool, error) {
 	return false, nil
 }
 
-func GetCategoryById(id int) (Category, error) {
+func GetCategoryById(id int) (*Category, error) {
 	var category Category
 	err := db.Where("id = ?", id).Find(&Category{}).Scan(&category).Error
-	return category, err
+	return &category, err
 }
 
 func GetCategoriesByParentId(parentId int) ([]*Category, error) {

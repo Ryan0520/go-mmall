@@ -19,7 +19,7 @@ func RemoveLoginUser() {
 	if err != nil {
 		log.Error(err)
 	}
-	log.Info("RemoveLoginUser result: %d", result)
+	log.Info("RemoveLoginUser result: ", result)
 }
 
 func ReadLoginUser() *models.User {

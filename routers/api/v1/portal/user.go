@@ -66,7 +66,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	user.Password = ""
-	util.WriteLoginUser(&user)
+	util.WriteLoginUser(user)
 	appG.Response(http.StatusOK, e.SUCCESS, user)
 }
 
@@ -488,8 +488,12 @@ func UpdateUserInfo(c *gin.Context) {
 
 // 退出登录
 func Logout(c *gin.Context) {
-	util.RemoveLoginUser()
+	user := CheckLogin(c)
 	appG := app.Gin{C: c}
+	if user == nil {
+		return
+	}
+	util.RemoveLoginUser()
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
 

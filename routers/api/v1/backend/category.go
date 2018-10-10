@@ -14,17 +14,12 @@ import (
 )
 
 func AddCategory(c *gin.Context) {
-	loginUser := portal.CheckLogin(c)
+	loginUser := CheckAdminLogin(c)
 	if loginUser == nil {
 		return
 	}
 
 	appG := app.Gin{C: c}
-	if loginUser.Role != 1 {
-		appG.Response(http.StatusOK, e.ERROR_NOT_ADMIN, nil)
-		return
-	}
-
 	type RequestParams struct {
 		ParentId int    `json:"parent_id"`
 		Name     string `json:"name"`
@@ -76,14 +71,22 @@ func AddCategory(c *gin.Context) {
 }
 
 func GetCategory(c *gin.Context) {
-	loginUser := portal.CheckLogin(c)
+	loginUser := CheckAdminLogin(c)
 	if loginUser == nil {
 		return
 	}
 
 	appG := app.Gin{C: c}
-	categoryId := c.DefaultQuery("category_id", "0")
-	id, _ := com.StrTo(categoryId).Int()
+	id := com.StrTo(c.Param("id")).MustInt()
+
+	valid := validation.Validation{}
+	valid.Min(id, 1, "id").Message("ID必须大于0")
+
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusOK, e.INVALID_PARAMS, nil)
+		return
+	}
 	categories, err := models.GetCategoriesByParentId(id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -98,14 +101,13 @@ func GetCategory(c *gin.Context) {
 }
 
 func UpdateCategory(c *gin.Context) {
-	loginUser := portal.CheckLogin(c)
+	loginUser := CheckAdminLogin(c)
 	if loginUser == nil {
 		return
 	}
 
 	type RequestParams struct {
-		CategoryId int    `json:"category_id"`
-		Name       string `json:"name"`
+		Name string `json:"name"`
 	}
 	appG := app.Gin{C: c}
 	var requestParams RequestParams
@@ -115,7 +117,9 @@ func UpdateCategory(c *gin.Context) {
 		return
 	}
 
+	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
+	valid.Min(id, 1, "id").Message("ID必须大于0")
 	valid.Required(requestParams.Name, "name").Message("分类名字不能为空")
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
@@ -123,7 +127,7 @@ func UpdateCategory(c *gin.Context) {
 		return
 	}
 
-	category, err := models.GetCategoryById(requestParams.CategoryId)
+	category, err := models.GetCategoryById(id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_CATEGORY, nil)
@@ -144,4 +148,19 @@ func UpdateCategory(c *gin.Context) {
 
 func GetDeepCategoryId(c *gin.Context) {
 
+}
+
+func CheckAdminLogin(c *gin.Context) *models.User {
+	loginUser := portal.CheckLogin(c)
+	if loginUser == nil {
+		return nil
+	}
+
+	appG := app.Gin{C: c}
+	if loginUser.Role != models.Admin {
+		appG.Response(http.StatusOK, e.ERROR_NOT_ADMIN, nil)
+		return nil
+	}
+
+	return loginUser
 }

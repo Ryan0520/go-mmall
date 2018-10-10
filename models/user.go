@@ -5,6 +5,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+const (
+	Customer = 0
+	Admin = 1
+)
+
 type User struct {
 	Model
 
@@ -44,13 +49,13 @@ func CheckEmailExist(email string) (bool, error) {
 	return count > 0, nil
 }
 
-func QueryUserByUsernameAndPassword(username string, password string) (User, error) {
+func QueryUserByUsernameAndPassword(username string, password string) (*User, error) {
 	var user User
 	err := db.Where("username = ? AND password = ?", username, password).Find(&User{}).Scan(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Errorf("QueryUserByUsernameAndPassword error: %v", err)
 	}
-	return user, err
+	return &user, err
 }
 
 func QueryQuestionWithUsername(username string) (string, error) {
@@ -72,13 +77,13 @@ func CheckQuestionAndAnswerCorrect(username string, question string, answer stri
 	return count > 0, nil
 }
 
-func QueryUserWithUsername(username string) (User, error) {
+func QueryUserWithUsername(username string) (*User, error) {
 	var user User
 	err := db.Where("username = ?", username).First(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Errorf("QueryUserWithUsername error: %v", err)
 	}
-	return user, err
+	return &user, err
 }
 
 func (user *User) Save() error {

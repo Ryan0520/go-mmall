@@ -29,10 +29,18 @@ func InitRouter() *gin.Engine {
 
 		manager := apiV1.Group("/manage/")
 		{
-			manager.GET("/category", backend.GetCategory)
-			manager.POST("/category", backend.AddCategory)
-			manager.PUT("/category", backend.UpdateCategory)
-			manager.GET("/deep_category_ids", backend.GetDeepCategoryId)
+			manager.GET("/categories/:id", backend.GetCategory)
+			manager.POST("/categories", backend.AddCategory)
+			manager.PUT("/categories/:id", backend.UpdateCategory)
+			manager.GET("/categories_deep_ids", backend.GetDeepCategoryId)
+
+			manager.GET("/products/:id", backend.GetProduct)
+			manager.GET("/products", backend.GetProducts)
+			manager.GET("/product/search", backend.SearchProduct)
+			manager.POST("/product/sale_status", backend.UpdateProductSaleStatus)
+			manager.POST("/products", backend.SaveOrUpdate)
+			manager.POST("/product/upload", backend.UploadProductImage)
+			manager.POST("/product/rich_text_img_upload", backend.UploadProductRichTextImage)
 		}
 	}
 

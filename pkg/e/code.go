@@ -31,4 +31,15 @@ const (
 	ERROR_NOT_EXIST_CATEGORY                  = 10024
 	ERROR_GET_CATEGORY                        = 10025
 	ERROR_UPDATE_CATEGORY                     = 10026
+	ERROR_COUNT_PRODUCT_FAIL                  = 10027
+	ERROR_GET_PRODUCT_LIST                    = 10028
+	ERROR_GET_PRODUCT                         = 10029
+	ERROR_SEARCH_PRODUCT                      = 10030
+	ERROR_SAVE_PRODUCT                        = 10031
+	ERROR_UPDATE_PRODUCT                      = 10032
+	ERROR_UPDATE_PRODUCT_SALE_STATUS          = 10033
+	ERROR_NOT_EXIST_PRODUCT                   = 10034
+	ERROR_UPLOAD_SAVE_IMAGE_FAIL              = 30001
+	ERROR_UPLOAD_CHECK_IMAGE_FAIL             = 30002
+	ERROR_UPLOAD_CHECK_IMAGE_FORMAT           = 30003
 )

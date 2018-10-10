@@ -103,18 +103,18 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	}
 }
 
-func addExtraSpaceIfExist(str string) string {
-	if str != "" {
-		return " " + str
-	}
-	return ""
-}
-
 // updateTimeStampForUpdateCallback will set `ModifyTime` when updating
 func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:update_column"); !ok {
 		scope.SetColumn("UpdateTime", time.Now().Format(dateTimeFormat))
 	}
+}
+
+func addExtraSpaceIfExist(str string) string {
+	if str != "" {
+		return " " + str
+	}
+	return ""
 }
 
 func CloseDB() {

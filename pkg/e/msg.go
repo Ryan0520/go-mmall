@@ -30,6 +30,17 @@ var MsgFlags = map[int]string{
 	ERROR_NOT_EXIST_CATEGORY:                  "分类不存在",
 	ERROR_GET_CATEGORY:                        "查询分类失败",
 	ERROR_UPDATE_CATEGORY:                     "更新分类失败",
+	ERROR_COUNT_PRODUCT_FAIL:                  "获取产品总数失败",
+	ERROR_GET_PRODUCT_LIST:                    "获取产品列表失败",
+	ERROR_GET_PRODUCT:                         "获取产品失败",
+	ERROR_SEARCH_PRODUCT:                      "搜索产品失败",
+	ERROR_UPDATE_PRODUCT_SALE_STATUS:          "更新产品上架状态失败",
+	ERROR_SAVE_PRODUCT:                        "保存产品失败",
+	ERROR_UPDATE_PRODUCT:                      "更新产品失败",
+	ERROR_NOT_EXIST_PRODUCT:                   "产品不存在",
+	ERROR_UPLOAD_SAVE_IMAGE_FAIL:              "保存图片失败",
+	ERROR_UPLOAD_CHECK_IMAGE_FAIL:             "检查图片失败",
+	ERROR_UPLOAD_CHECK_IMAGE_FORMAT:           "校验图片错误，图片格式或大小有问题",
 }
 
 func GetMsg(code int) string {
