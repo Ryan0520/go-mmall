@@ -4,12 +4,11 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	"github.com/Ryan0520/go-mmall/pkg/setting"
 )
 
-const Salt = "jWcgWrFyiKKiyl6gvAqy"
-
-func MD5(content string) string {
-	content = content + Salt
+func MD5BySalt(content string) string {
+	content = content + setting.AppSetting.PasswordSalt
 	data := []byte(content)
 	has := md5.Sum(data)
 	md5str := fmt.Sprintf("%x", has)
@@ -21,8 +20,3 @@ func EncodeMD5(value string) string {
 	m.Write([]byte(value))
 	return hex.EncodeToString(m.Sum(nil))
 }
-
-//func main() {
-//	md5Str := MD5("123456")
-//	log.Info("md5: %s", md5Str)
-//}

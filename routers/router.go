@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"github.com/Ryan0520/go-mmall/middleware/auth"
 	"github.com/Ryan0520/go-mmall/pkg/setting"
 	"github.com/Ryan0520/go-mmall/routers/api/v1/backend"
 	"github.com/Ryan0520/go-mmall/routers/api/v1/portal"
@@ -28,6 +29,7 @@ func InitRouter() *gin.Engine {
 		}
 
 		manager := apiV1.Group("/manage/")
+		manager.Use(auth.Admin())
 		{
 			manager.GET("/categories/:id", backend.GetCategory)
 			manager.POST("/categories", backend.AddCategory)
@@ -41,6 +43,20 @@ func InitRouter() *gin.Engine {
 			manager.POST("/products", backend.SaveOrUpdate)
 			manager.POST("/product/upload", backend.UploadProductImage)
 			manager.POST("/product/rich_text_img_upload", backend.UploadProductRichTextImage)
+		}
+
+		cart := apiV1.Group("/cart/")
+		cart.Use(auth.Login())
+		{
+			cart.GET("/list", portal.GetCartList)
+			cart.POST("/add_product", portal.AddCartProduct)
+			cart.POST("/update_product_num", portal.UpdateCartProduct)
+			cart.POST("/delete_product", portal.DeleteCartProduct)
+			cart.POST("/select_product", portal.SelectCartProduct)
+			cart.POST("/un_select_product", portal.UnSelectCartProduct)
+			cart.GET("/cart_product_count", portal.GetCartProductCount)
+			cart.POST("/select_all", portal.SelectAllCart)
+			cart.POST("/un_select_all", portal.UnSelectAllCart)
 		}
 	}
 

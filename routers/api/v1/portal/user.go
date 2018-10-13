@@ -54,7 +54,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	md5Pwd := util.MD5(password)
+	md5Pwd := util.MD5BySalt(password)
 	user, err := models.QueryUserByUsernameAndPassword(username, md5Pwd)
 	if err != nil {
 		log.Error(err)
@@ -132,7 +132,7 @@ func Register(c *gin.Context) {
 	}
 
 	user.Role = 0
-	user.Password = util.MD5(user.Password)
+	user.Password = util.MD5BySalt(user.Password)
 	err = user.Save()
 	if err != nil {
 		log.Error(err)
@@ -341,7 +341,7 @@ func ForgetResetPassword(c *gin.Context) {
 		return
 	}
 
-	user.Password = util.MD5(requestParams.NewPassword)
+	user.Password = util.MD5BySalt(requestParams.NewPassword)
 	err = user.Update()
 	if err != nil {
 		appG.Response(http.StatusOK, e.ERROR_RESET_PASSWORD, nil)
@@ -372,7 +372,7 @@ func ResetPassword(c *gin.Context) {
 	}
 
 	username := loginUser.Username
-	md5Pwd := util.MD5(requestParams.OldPassword)
+	md5Pwd := util.MD5BySalt(requestParams.OldPassword)
 	user, err := models.QueryUserByUsernameAndPassword(username, md5Pwd)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		appG.Response(http.StatusOK, e.ERROR_QUERY_USER_BY_USERNAME_AND_PASSWORD, nil)
@@ -384,7 +384,7 @@ func ResetPassword(c *gin.Context) {
 		return
 	}
 
-	user.Password = util.MD5(requestParams.NewPassword)
+	user.Password = util.MD5BySalt(requestParams.NewPassword)
 	err = user.Update()
 	if err != nil {
 		appG.Response(http.StatusOK, e.ERROR_RESET_PASSWORD, nil)
@@ -506,4 +506,8 @@ func CheckLogin(c *gin.Context) *models.User {
 		return nil
 	}
 	return user
+}
+
+func GetCurrentUser() *models.User  {
+	return util.ReadLoginUser()
 }

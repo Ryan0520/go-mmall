@@ -19,7 +19,7 @@ type Product struct {
 	MainImage string `json:"main_image"`
 	SubImages string `json:"sub_images"`
 	Detail string `json:"detail"`
-	Price float64 `json:"price"`
+	Price int `json:"price"` // 单位是分
 	Stock int `json:"stock"`
 	Status int `json:"status"`
 }

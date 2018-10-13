@@ -14,11 +14,6 @@ import (
 )
 
 func AddCategory(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	appG := app.Gin{C: c}
 	type RequestParams struct {
 		ParentId int    `json:"parent_id"`
@@ -71,11 +66,6 @@ func AddCategory(c *gin.Context) {
 }
 
 func GetCategory(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
 
@@ -101,11 +91,6 @@ func GetCategory(c *gin.Context) {
 }
 
 func UpdateCategory(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	type RequestParams struct {
 		Name string `json:"name"`
 	}

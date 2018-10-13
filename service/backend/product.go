@@ -2,7 +2,9 @@ package backend
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/Ryan0520/go-mmall/models"
+	"github.com/Ryan0520/go-mmall/pkg/e"
 	"github.com/Ryan0520/go-mmall/pkg/gredis"
 	mmallCache "github.com/Ryan0520/go-mmall/service/cache"
 	log "github.com/sirupsen/logrus"
@@ -44,6 +46,10 @@ func (p *Product) Get() (*models.Product, error) {
 	product, err := models.GetProduct(p.P.ID)
 	if err != nil {
 		return nil, err
+	}
+	if product.ID == 0 {
+		log.Error("产品 productId: ? 不存在", product.ID)
+		return nil, errors.New(e.GetMsg(e.ERROR_NOT_EXIST_PRODUCT))
 	}
 	gredis.Set(key, product, 3600)
 	return product, nil

@@ -39,6 +39,17 @@ const (
 	ERROR_UPDATE_PRODUCT                      = 10032
 	ERROR_UPDATE_PRODUCT_SALE_STATUS          = 10033
 	ERROR_NOT_EXIST_PRODUCT                   = 10034
+	ERROR_GET_CART_LIST                       = 10035
+	ERROR_GET_CART                            = 10036
+	ERROR_UPDATE_CART                         = 10037
+	ERROR_ADD_CART_PRODUCT                    = 10038
+	ERROR_DELETE_CART_PRODUCT                 = 10039
+	ERROR_UPDATE_CART_PRODUCT                 = 10040
+	ERROR_SELECT_CART_PRODUCT                 = 10041
+	ERROR_UN_SELECT_CART_PRODUCT              = 10042
+	ERROR_GET_CART_PRODUCT_COUNT              = 10043
+	ERROR_SELECT_ALL_CART                     = 10044
+	ERROR_UN_SELECT_ALL_CART                  = 10045
 	ERROR_UPLOAD_SAVE_IMAGE_FAIL              = 30001
 	ERROR_UPLOAD_CHECK_IMAGE_FAIL             = 30002
 	ERROR_UPLOAD_CHECK_IMAGE_FORMAT           = 30003

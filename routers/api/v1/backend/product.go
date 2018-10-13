@@ -16,11 +16,6 @@ import (
 )
 
 func GetProducts(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	appG := app.Gin{C: c}
 	productService := backend.Product{
 		PageNum:  util.GetPage(c),
@@ -47,11 +42,6 @@ func GetProducts(c *gin.Context) {
 }
 
 func GetProduct(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
 
@@ -81,11 +71,6 @@ func GetProduct(c *gin.Context) {
 }
 
 func SearchProduct(c *gin.Context) {
-	loginUser := CheckAdminLogin(c)
-	if loginUser == nil {
-		return
-	}
-
 	appG := app.Gin{C: c}
 	pName := c.Query("productName")
 	pId := com.StrTo(c.Query("productId")).MustInt()
@@ -201,11 +186,6 @@ func UploadProductRichTextImage(c *gin.Context) {
 }
 
 func UpdateProductSaleStatus(c *gin.Context) {
-	admin := CheckAdminLogin(c)
-	if admin == nil {
-		return
-	}
-
 	type RequestParams struct {
 		Id     int `json:"id"`
 		Status int `json:"status"`
@@ -260,11 +240,6 @@ func UpdateProductSaleStatus(c *gin.Context) {
 }
 
 func SaveOrUpdate(c *gin.Context) {
-	admin := CheckAdminLogin(c)
-	if admin == nil {
-		return
-	}
-
 	var p *models.Product
 	appG := app.Gin{C: c}
 	err := c.ShouldBind(&p)
@@ -287,6 +262,11 @@ func SaveOrUpdate(c *gin.Context) {
 	dbP, err := models.GetProduct(p.ID)
 	if err != nil {
 		appG.Response(http.StatusOK, e.ERROR_GET_PRODUCT, nil)
+		return
+	}
+	if dbP.ID == 0 {
+		log.Error("产品 productId: ? 不存在", dbP.ID)
+		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_PRODUCT, nil)
 		return
 	}
 
