@@ -58,6 +58,17 @@ func InitRouter() *gin.Engine {
 			cart.POST("/select_all", portal.SelectAllCart)
 			cart.POST("/un_select_all", portal.UnSelectAllCart)
 		}
+
+		shipping := apiV1.Group("/shipping")
+		shipping.Use(auth.Login())
+		{
+			shipping.POST("/", portal.AddShipping)
+			shipping.DELETE("/:id", portal.DeleteShipping)
+			shipping.PUT("/:id", portal.UpdateShipping)
+			shipping.GET("/", portal.GetShipping)
+			shipping.GET("/list", portal.GetShippingList)
+		}
+
 	}
 
 	return r

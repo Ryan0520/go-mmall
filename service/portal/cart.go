@@ -63,7 +63,7 @@ func (c *CartProductVo) AddCartProduct(productId, count int) (*CartVo, error) {
 			Quantity: count,
 			Checked: models.Checked,
 		}
-		err = cart.Create()
+		err = cart.Save()
 		if err != nil {
 			log.Error("create cart err: ", err)
 			return nil, err
@@ -101,7 +101,7 @@ func (c *CartProductVo)UpdateCartProductCount(productId, count int) (*CartVo, er
 			Quantity: count,
 			Checked: models.Checked,
 		}
-		err = cart.Create()
+		err = cart.Save()
 		if err != nil {
 			log.Error("create cart err: ", err)
 			return nil, err

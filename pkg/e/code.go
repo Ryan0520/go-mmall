@@ -50,6 +50,12 @@ const (
 	ERROR_GET_CART_PRODUCT_COUNT              = 10043
 	ERROR_SELECT_ALL_CART                     = 10044
 	ERROR_UN_SELECT_ALL_CART                  = 10045
+	ERROR_ADD_SHIPPING                        = 10046
+	ERROR_UPDATE_SHIPPING                     = 10047
+	ERROR_DELETE_SHIPPING                     = 10048
+	ERROR_GET_SHIPPING                        = 10049
+	ERROR_GET_SHIPPINGS                       = 10050
+	ERROR_NOT_EXIST_SHIPPING                  = 10051
 	ERROR_UPLOAD_SAVE_IMAGE_FAIL              = 30001
 	ERROR_UPLOAD_CHECK_IMAGE_FAIL             = 30002
 	ERROR_UPLOAD_CHECK_IMAGE_FORMAT           = 30003

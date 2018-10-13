@@ -73,7 +73,7 @@ func SelectCartProductCount(userId int) (int, error)  {
 	return count, nil
 }
 
-func (c *Cart) Create() error  {
+func (c *Cart) Save() error  {
 	if err := db.Create(c).Error; err != nil {
 		return err
 	}
