@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	setting.Setup()
 	models.Setup()
 	gredis.SetUp()
 

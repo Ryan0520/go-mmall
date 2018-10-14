@@ -11,6 +11,9 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 	gin.SetMode(setting.ServerSetting.RunMode)
+	r.LoadHTMLGlob("templates/*")
+	r.GET("/alipay/return", ReturnHandle)
+	r.POST("/alipay/notify", NotifyHandle)
 
 	apiV1 := r.Group("/api/v1/")
 	{
@@ -26,6 +29,13 @@ func InitRouter() *gin.Engine {
 			user.POST("/reset_password", portal.ResetPassword)
 			user.POST("/update_information", portal.UpdateUserInfo)
 			user.GET("/logout", portal.Logout)
+		}
+
+		product := apiV1.Group("/products/")
+		product.Use(auth.Admin())
+		{
+			product.GET("/list", portal.GetProducts)
+			product.GET("/", portal.GetProduct)
 		}
 
 		manager := apiV1.Group("/manage/")
@@ -67,6 +77,13 @@ func InitRouter() *gin.Engine {
 			shipping.PUT("/:id", portal.UpdateShipping)
 			shipping.GET("/", portal.GetShipping)
 			shipping.GET("/list", portal.GetShippingList)
+		}
+
+		order := apiV1.Group("/order/")
+		order.Use(auth.Login())
+		{
+			order.POST("/pay", portal.PayOrder)
+			order.GET("/order_pay_status", portal.QueryOrderPayStatus)
 		}
 
 	}

@@ -9,11 +9,17 @@ import (
 type Product struct {
 	ID int
 
-	PageNum  int
-	PageSize int
+	FilterOffSale bool
+	Keyword       string
+	OrderBy       string
+	PageNum       int
+	PageSize      int
 }
 
 func (p *Product) GetProductKey() string {
+	if p.FilterOffSale {
+		return e.CacheProduct + "_" + strconv.Itoa(p.ID) + "_" + "on_sale"
+	}
 	return e.CacheProduct + "_" + strconv.Itoa(p.ID)
 }
 
@@ -25,6 +31,15 @@ func (p *Product) GetProductsKey() string {
 
 	if p.ID > 0 {
 		keys = append(keys, strconv.Itoa(p.ID))
+	}
+	if p.FilterOffSale {
+		keys = append(keys, "on_sale")
+	}
+	if p.Keyword != "" {
+		keys = append(keys, p.Keyword)
+	}
+	if p.OrderBy != "" {
+		keys = append(keys, p.OrderBy)
 	}
 	if p.PageNum > 0 {
 		keys = append(keys, strconv.Itoa(p.PageNum))

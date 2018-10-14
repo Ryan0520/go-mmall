@@ -58,6 +58,21 @@ type Redis struct {
 
 var RedisSetting = &Redis{}
 
+type Alipay struct {
+	AppId           string
+	PrivateKey      string
+	AlipayPublicKey string
+	NotifyUrl       string
+	ReturnUrl       string
+	IsProduct		bool
+}
+
+var AlipaySetting = &Alipay{}
+
+func init()  {
+	Setup()
+}
+
 func Setup() {
 	Cfg, err := ini.Load("conf/app.ini")
 	if err != nil {
@@ -79,6 +94,11 @@ func Setup() {
 	err = Cfg.Section("database").MapTo(DatabaseSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)
+	}
+
+	err = Cfg.Section("alipay").MapTo(AlipaySetting)
+	if err != nil {
+		log.Fatalf("Cfg.MapTo AlipaySetting err: %v", err)
 	}
 
 	err = Cfg.Section("redis").MapTo(RedisSetting)

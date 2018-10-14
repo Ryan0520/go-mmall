@@ -10,6 +10,11 @@ const (
 	OffSale = 2
 )
 
+const (
+	PRICE_DESC = "price desc"
+	PRICE_ASC = "price asc"
+)
+
 type Product struct {
 	Model
 
@@ -39,6 +44,29 @@ func GetProduct(id int) (*Product, error)  {
 		return nil, err
 	}
 	return &product, nil
+}
+
+func GetProductFilterOffSale(id int) (*Product, error)  {
+	var product Product
+	err := db.First(&product, "id = ? and status = ?", id, OnSale).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+	return &product, nil
+}
+
+func GetProductsFilterOffSale(pageNum, pageSize int, keyword, orderBy string) ([]*Product, error) {
+	var products []*Product
+	var err error
+	if len(keyword) == 0 {
+		err = db.Where("status = ?", OnSale).Offset(pageNum).Limit(pageSize).Order(orderBy).Find(&products).Error
+	} else {
+		err = db.Offset(pageNum).Limit(pageSize).Order(orderBy).Where("name LIKE ? and status = ?", fmt.Sprintf("%%%s%%", keyword), OnSale).Find(&products).Error
+	}
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+	return products, nil
 }
 
 func GetProducts(pageNum, pageSize int) ([]*Product, error) {

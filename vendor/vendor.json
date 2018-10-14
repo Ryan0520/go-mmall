@@ -3,10 +3,22 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "S2+ta+dGORvF6I4JfuxTPRYEodo=",
+			"path": "github.com/Unknwon/com",
+			"revision": "da59b551951d50441ca26b7a8cd81317f34df87f",
+			"revisionTime": "2018-06-17T00:39:50Z"
+		},
+		{
 			"checksumSHA1": "5T9RSmblICCNexATntH0Zxoo37c=",
 			"path": "github.com/astaxie/beego/validation",
 			"revision": "d96289a81bf67728cff7a19b067aaecc65a62ec6",
 			"revisionTime": "2017-07-18T16:56:48Z"
+		},
+		{
+			"checksumSHA1": "mUeojTdLEyzYOki70VUAeeYr/wQ=",
+			"path": "github.com/dgrijalva/jwt-go",
+			"revision": "0b96aaa707760d6ab28d9b9d1913ff5993328bae",
+			"revisionTime": "2018-07-19T21:18:23Z"
 		},
 		{
 			"checksumSHA1": "q9bsaNA05ney3eon3nKAE+eLwO4=",
@@ -87,6 +99,12 @@
 			"revisionTime": "2018-03-08T03:36:59Z"
 		},
 		{
+			"checksumSHA1": "xiOz/N8TgZKHFQw0SaSUeorQS08=",
+			"path": "github.com/kataras/iris/core/errors",
+			"revision": "e1e309c0fe31acda872cdf4833ca8402034cbee2",
+			"revisionTime": "2018-05-21T04:40:43Z"
+		},
+		{
 			"checksumSHA1": "U6lX43KDDlNOn+Z0Yyww+ZzHfFo=",
 			"path": "github.com/mattn/go-isatty",
 			"revision": "fc9e8d8ef48496124e79ae0df75490096eccf6fe",
@@ -103,6 +121,18 @@
 			"path": "github.com/sirupsen/logrus",
 			"revision": "1ed61965b9e594bf37539680d7f63eccd060314f",
 			"revisionTime": "2018-09-30T20:58:21Z"
+		},
+		{
+			"checksumSHA1": "ThiFmR0q2p/K+x/pdLZYylG+Jc4=",
+			"path": "github.com/smartwalle/alipay",
+			"revision": "00f6f4d1d587d2faec29c0a0b175bc905b838fc2",
+			"revisionTime": "2018-10-09T03:16:30Z"
+		},
+		{
+			"checksumSHA1": "e7qBOezqBwbr4p89C5GPOqeCs28=",
+			"path": "github.com/smartwalle/alipay/encoding",
+			"revision": "00f6f4d1d587d2faec29c0a0b175bc905b838fc2",
+			"revisionTime": "2018-10-09T03:16:30Z"
 		},
 		{
 			"checksumSHA1": "0FCBLTqGOxgifAKfS0360iLTZR4=",
@@ -141,5 +171,5 @@
 			"revisionTime": "2018-03-28T19:50:20Z"
 		}
 	],
-	"rootPath": "mmall"
+	"rootPath": "github.com/Ryan0520/go-mmall"
 }

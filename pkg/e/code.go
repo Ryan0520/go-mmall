@@ -56,6 +56,14 @@ const (
 	ERROR_GET_SHIPPING                        = 10049
 	ERROR_GET_SHIPPINGS                       = 10050
 	ERROR_NOT_EXIST_SHIPPING                  = 10051
+	ERROR_PRODUCT_OFFSALE_OR_DELETED          = 10052
+	ERROR_ORDER_PAY                           = 10053
+	ERROR_NOT_EXIST_ORDER                     = 10054
+	ERROR_QUERY_ORDER_PAY_STATUS              = 10055
+	ERROR_GET_ORDER                           = 10056
+	ERROR_ALIPAY_CALLBACK_REPEAT              = 10057
+	ERROR_UPDATE_ORDER_STATUS                 = 10058
+	ERROR_CREATE_PAYINFO                      = 10059
 	ERROR_UPLOAD_SAVE_IMAGE_FAIL              = 30001
 	ERROR_UPLOAD_CHECK_IMAGE_FAIL             = 30002
 	ERROR_UPLOAD_CHECK_IMAGE_FORMAT           = 30003
