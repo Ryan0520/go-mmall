@@ -37,7 +37,7 @@ func GetProductTotalCount() (int, error) {
 	return count, nil
 }
 
-func GetProduct(id int) (*Product, error)  {
+func SelectProductById(id int) (*Product, error)  {
 	var product Product
 	err := db.First(&product, "id = ?", id).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
@@ -123,4 +123,10 @@ func (p *Product) Update() error {
 		return err
 	}
 	return nil
+}
+
+func UpdateProductStock(id, stock int) error {
+  	return db.Find(&Product{}, "id = ?", id).Updates(map[string]interface{}{
+		"stock": stock,
+	}).Error
 }

@@ -14,7 +14,7 @@ func NotifyHandle(c *gin.Context) {
 	var notification, _ = alipay.Client.GetTradeNotification(c.Request)
 	if notification != nil {
 		log.Println("支付成功")
-		orderNo := com.StrTo(notification.OutTradeNo).MustInt()
+		orderNo := com.StrTo(notification.OutTradeNo).MustInt64()
 		order, err := models.SelectOrderByOrderNo(orderNo)
 		if err != nil || order.ID <= 0{
 			log.Errorf("获取订单失败，订单号: %d", orderNo)
@@ -27,9 +27,10 @@ func NotifyHandle(c *gin.Context) {
 			return
 		}
 		order.Status = models.ORDER_PAID
-		order.PaymentTime = time.Now()
+		paymentTime := time.Now()
+		order.PaymentTime = &paymentTime
 		err = models.UpdateOrder(order.OrderNo, map[string]interface{}{
-			"payment_time": order.PaymentTime,
+			"payment_time": paymentTime,
 			"status": order.Status,
 		})
 		if err != nil {

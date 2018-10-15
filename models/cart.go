@@ -1,7 +1,5 @@
 package models
 
-import "github.com/jinzhu/gorm"
-
 const (
 	Checked = 1
 	UnChecked = 0
@@ -16,10 +14,10 @@ type Cart struct {
 	Checked   int `json:"checked"`
 }
 
-func GetCartsByUserID(userId int) ([]*Cart, error)  {
+func SelectCartsByUserID(userId int) ([]*Cart, error)  {
 	var carts []*Cart
 	err := db.Find(&carts, "user_id = ?", userId).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil {
 		return nil, err
 	}
 	return carts, nil
@@ -50,6 +48,10 @@ func SelectCartProductCheckedStatusByUserId(userId int) (int, error) {
 
 func DeleteCartProductsByUserIdAndProductIds(userId int, productIds []string) error {
 	return db.Delete(Cart{}, "user_id = ? and product_id in (?)", userId, productIds).Error
+}
+
+func DeleteCart(id int) error {
+	return db.Delete(Cart{}, "id = ?", id).Error
 }
 
 func UpdateCartProductCheckedStatusByProductId(userId, productId, checked int) error {

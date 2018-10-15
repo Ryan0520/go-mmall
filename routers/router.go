@@ -53,6 +53,11 @@ func InitRouter() *gin.Engine {
 			manager.POST("/products", backend.SaveOrUpdate)
 			manager.POST("/product/upload", backend.UploadProductImage)
 			manager.POST("/product/rich_text_img_upload", backend.UploadProductRichTextImage)
+
+			manager.GET("/order/list", portal.ManageGetOrderList)
+			manager.GET("/order/detail/:order_no", portal.ManageGetOrderDetail)
+			manager.GET("/order/search", portal.ManageOrderSearch)
+			manager.POST("/order/send_goods", portal.ManageSendGoods)
 		}
 
 		cart := apiV1.Group("/cart/")
@@ -83,7 +88,12 @@ func InitRouter() *gin.Engine {
 		order.Use(auth.Login())
 		{
 			order.POST("/pay", portal.PayOrder)
-			order.GET("/order_pay_status", portal.QueryOrderPayStatus)
+			order.GET("/pay_status", portal.QueryOrderPayStatus)
+			order.POST("/create", portal.CreateOrder)
+			order.GET("/order_cart_product", portal.GetOrderCartProduct)
+			order.GET("/list", portal.GetOrderList)
+			order.GET("/detail/:order_no", portal.GetOrderDetail)
+			order.POST("/cancel", portal.CancelOrder)
 		}
 
 	}

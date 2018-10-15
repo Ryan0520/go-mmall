@@ -259,7 +259,7 @@ func SaveOrUpdate(c *gin.Context) {
 		return
 	}
 
-	dbP, err := models.GetProduct(p.ID)
+	dbP, err := models.SelectProductById(p.ID)
 	if err != nil {
 		appG.Response(http.StatusOK, e.ERROR_GET_PRODUCT, nil)
 		return

@@ -48,7 +48,7 @@ func (c *CartProductVo) AddCartProduct(productId, count int) (*CartVo, error) {
 
 	// 没有该商品的购物车记录，需要添加
 	if cart == nil || err == gorm.ErrRecordNotFound {
-		p, err := models.GetProduct(productId)
+		p, err := models.SelectProductById(productId)
 		if err != nil{
 			log.Errorf("产品 productId: %d 不存在", productId)
 			return nil, err
@@ -86,7 +86,7 @@ func (c *CartProductVo)UpdateCartProductCount(productId, count int) (*CartVo, er
 
 	// 没有该商品的购物车记录，需要添加
 	if cart == nil || err == gorm.ErrRecordNotFound {
-		p, err := models.GetProduct(productId)
+		p, err := models.SelectProductById(productId)
 		if err != nil{
 			log.Errorf("产品 productId: %d 不存在", productId)
 			return nil, err
@@ -163,7 +163,7 @@ func (c *CartProductVo)UnSelectAllCart() (*CartVo, error) {
 }
 
 func (c *CartProductVo)getCartVO() (*CartVo, error) {
-	mCarts, err := models.GetCartsByUserID(c.UserId)
+	mCarts, err := models.SelectCartsByUserID(c.UserId)
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -178,7 +178,7 @@ func (c *CartProductVo)getCartVO() (*CartVo, error) {
 		cartProduct.UserId = mCart.UserId
 		cartProduct.ProductId = mCart.ProductId
 
-		mProduct, err := models.GetProduct(mCart.ProductId)
+		mProduct, err := models.SelectProductById(mCart.ProductId)
 		if err != nil {
 			log.Error("获取product失败, productId：%d", mCart.ProductId)
 		} else {

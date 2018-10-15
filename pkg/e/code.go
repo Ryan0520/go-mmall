@@ -64,6 +64,12 @@ const (
 	ERROR_ALIPAY_CALLBACK_REPEAT              = 10057
 	ERROR_UPDATE_ORDER_STATUS                 = 10058
 	ERROR_CREATE_PAYINFO                      = 10059
+	ERROR_CREATE_ORDER                        = 10060
+	ERROR_CANCEL_ORDER                        = 10061
+	ERROR_GET_ORDER_CART_PRODUCT              = 10062
+	ERROR_GET_ORDER_LIST                      = 10063
+	ERROR_GET_ORDER_DETAIL                    = 10064
+	ERROR_SEND_GOODS                          = 10065
 	ERROR_UPLOAD_SAVE_IMAGE_FAIL              = 30001
 	ERROR_UPLOAD_CHECK_IMAGE_FAIL             = 30002
 	ERROR_UPLOAD_CHECK_IMAGE_FORMAT           = 30003

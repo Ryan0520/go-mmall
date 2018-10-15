@@ -16,7 +16,7 @@ type PayInfo struct {
 	Model
 
 	UserId         int    `json:"user_id"`         // 用户ID
-	OrderNo        int    `json:"order_no"`        // 订单号
+	OrderNo        int64    `json:"order_no"`        // 订单号
 	PayPlatform    int    `json:"pay_platform"`    // 支付平台 1-支付宝 2-微信
 	PlatformNumber string `json:"platform_number"` // 支付平台返回的流水号
 	PlatformStatus string `json:"platform_status"` // 支付状态

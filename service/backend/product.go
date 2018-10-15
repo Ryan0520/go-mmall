@@ -45,7 +45,7 @@ func (p *Product) Get() (*models.Product, error) {
 			return cacheProduct, nil
 		}
 	}
-	product, err := models.GetProduct(p.P.ID)
+	product, err := models.SelectProductById(p.P.ID)
 	if err != nil {
 		return nil, err
 	}
