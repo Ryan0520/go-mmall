@@ -6,6 +6,7 @@ import (
 	"github.com/Ryan0520/go-mmall/routers/api/v1/backend"
 	"github.com/Ryan0520/go-mmall/routers/api/v1/portal"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func InitRouter() *gin.Engine {
@@ -14,7 +15,10 @@ func InitRouter() *gin.Engine {
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/alipay/return", ReturnHandle)
 	r.POST("/alipay/notify", NotifyHandle)
-
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "pong")
+	})
+	
 	apiV1 := r.Group("/api/v1/")
 	{
 		user := apiV1.Group("/user/")
