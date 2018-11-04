@@ -68,7 +68,7 @@ func ReturnHandle(c *gin.Context) {
 	if !ok {
 		status = "failure"
 	}
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+	c.HTML(http.StatusOK, "paysuccess.tmpl", gin.H{
 		"name": "Ryan",
 		"status": status,
 	})

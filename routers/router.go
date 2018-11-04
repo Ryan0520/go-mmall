@@ -15,6 +15,9 @@ func InitRouter() *gin.Engine {
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/alipay/return", ReturnHandle)
 	r.POST("/alipay/notify", NotifyHandle)
+	r.GET("/index", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", nil)
+	})
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
